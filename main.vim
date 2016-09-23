@@ -11,3 +11,5 @@ scriptencoding utf-8
 call zvim#util#source_rc('/plugins.vim')
 call zvim#util#source_rc('/general.vim')
 call zvim#util#source_rc('/mappings.vim')
+
+call zvim#util#source_rc('/autocmds.vim')
