@@ -45,10 +45,10 @@ autocmd InsertLeave * call SetUsLayout()
 call plug#begin('~/.config/nvim/plugged')
 
 "------------- Цветовые схемы ------------------
-	Plug 'morhetz/gruvbox'
+"Plug 'morhetz/gruvbox'
 	Plug 'jonathanfilip/vim-lucius'
-  Plug 'mhartington/oceanic-next'
-  Plug 'NLKNguyen/papercolor-theme'
+" Plug 'mhartington/oceanic-next'
+" Plug 'NLKNguyen/papercolor-theme'
   Plug 'vim-airline/vim-airline-themes'
 
 "------------ Стартовый экран ------------------
@@ -96,6 +96,12 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'majutsushi/tagbar'
 	Plug 'Shougo/unite.vim'
   Plug 'Lokaltog/vim-easymotion'
+  Plug 'tpope/vim-fugitive'
+  Plug 'cohama/agit.vim', {'on': 'Agit'}
+  Plug 'gregsexton/gitv', {'on': 'Gitv'}
+  Plug 'Yggdroot/indentLine'
+  Plug 'scrooloose/nerdcommenter'
+  Plug 'neomake/neomake'
 
 "-----------=== Поддержка языков ===------------
 "----- Python
@@ -107,16 +113,18 @@ call plug#begin('~/.config/nvim/plugged')
 "----- Emmet
   Plug 'mattn/emmet-vim', { 'for': ['html','xhtml','css','sass','scss','xml', 'php'] }
     au FileType html,css,php,sass,scss,less imap <expr>jk  emmet#expandAbbrIntelligent("\<tab>")
+  Plug 'ap/vim-css-color', { 'for': ['html', 'xhtml', 'css', 'sass', 'scss', 'xml', 'php']}
 
-Plug 'Valloric/MatchTagAlways'
+  Plug 'elzr/vim-json', {'for': ['javascript', 'json']}
+  Plug 'Valloric/MatchTagAlways'
 
- Plug 'othree/html5.vim',           { 'for': ['html', 'php'] }
+  Plug 'othree/html5.vim',           { 'for': ['html', 'php'] }
 "   let g:html5_event_handler_attributes_complete = 0
 "   let g:html5_rdfa_attributes_complete          = 0
 "   let g:html5_microdata_attributes_complete     = 0
 "   let g:html5_aria_attributes_complete          = 0
 
- Plug 'hail2u/vim-css3-syntax',    { 'for': ['html','css', 'sass', 'scss'] }
+  Plug 'hail2u/vim-css3-syntax',    { 'for': ['html','css', 'sass', 'scss'] }
        augroup VimCSS3Syntax
            autocmd!
            autocmd FileType css setlocal iskeyword+=-
@@ -124,28 +132,17 @@ Plug 'Valloric/MatchTagAlways'
 
 " Plug 'groenewege/vim-less',       { 'for': ['less']   }
 
-" Plug 'cakebaker/scss-syntax.vim', { 'for': ['scss']   }
-"   autocmd FileType scss set iskeyword+=-
+  Plug 'cakebaker/scss-syntax.vim', { 'for': ['scss']   }
+    autocmd FileType scss set iskeyword+=-
 
- Plug 'pangloss/vim-javascript',      { 'for': ['javascript', 'html'] }
-   let g:javascript_conceal_function       = "ƒ"
-   let g:javascript_conceal_null           = "ø"
-   let g:javascript_conceal_this           = "@"
-   let g:javascript_conceal_return         = "⇚"
-   let g:javascript_conceal_undefined      = "¿"
-   let g:javascript_conceal_NaN            = "ℕ"
-   let g:javascript_conceal_prototype      = "¶"
-   let g:javascript_conceal_static         = "•"
-   let g:javascript_conceal_super          = "Ω"
-   let g:javascript_conceal_arrow_function = "⇒"
-" Plug 'othree/javascript-libraries-syntax.vim'
-"  Plug 'othree/yajs.vim'
+  Plug 'pangloss/vim-javascript',      { 'for': ['javascript', 'html'] }
+  Plug 'othree/javascript-libraries-syntax.vim'
+    let g:used_javascript_libs = 'jquery,react,flux'
+  Plug 'mxw/vim-jsx'
+    let g:jsx_ext_required = 0
 
-"  Plug 'jelera/vim-javascript-syntax', { 'for': ['javascript', 'html'] }
-"    let g:javascript_enable_domhtmlcss = 1
-"    let g:html_indent_inctags          = "html,body,head,tbody"
-"    let g:html_indent_script1          = "inc"
-"    let g:html_indent_style1           = "inc"
+  Plug 'plasticboy/vim-markdown'
+
 
 "--------------=== Автокомплит ===---------
 "----- Deoplete
@@ -167,10 +164,14 @@ Plug 'Valloric/MatchTagAlways'
      autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
    augroup en
 
- Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }
-   let g:tern_show_argument_hints = 'on_hold'
-   let g:tern_show_signature_in_pum = 1
-   autocmd FileType javascript setlocal omnifunc=tern#Complete
+  Plug 'carlitux/deoplete-ternjs'
+    let g:tern_request_timeout = 1
+    let g:tern#command = ["tern"]
+    let g:tern#arguments = ["--persistent"]
+  Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }
+    let g:tern_show_argument_hints = 'on_hold'
+    let g:tern_show_signature_in_pum = 1
+    autocmd FileType javascript setlocal omnifunc=tern#Complete
 "---------------=== Разное ===------------------
   Plug 'chreekat/vim-paren-crosshairs'
 
@@ -183,20 +184,20 @@ Plug 'Valloric/MatchTagAlways'
 "Plug 'airblade/vim-gitgutter'
 
 
-  Plug 'scrooloose/syntastic', { 'for': ['html','css', 'sass', 'scss'] }
-    set statusline+=%#warningmsg#
-    set statusline+=%{SyntasticStatuslineFlag()}
-    set statusline+=%*
+"  Plug 'scrooloose/syntastic', { 'for': ['html','css', 'sass', 'scss'] }
+"  set statusline+=%#warningmsg#
+"  set statusline+=%{SyntasticStatuslineFlag()}
+"   set statusline+=%*
 
-    let g:syntastic_always_populate_loc_list = 1
-    let g:syntastic_auto_loc_list = 1
-    let g:syntastic_check_on_open = 1
-    let g:syntastic_check_on_wq = 0
-    let g:syntastic_html_tidy_ignore_errors = [ 'trimming empty <i>',
-          \'trimming empty <ul>',
-          \'trimming empty <li>',
-          \'trimming empty <button>',
-          \'<svg> proprietary attribute "xmlns:xlink"' ]
+"   let g:syntastic_always_populate_loc_list = 1
+"   let g:syntastic_auto_loc_list = 1
+"   let g:syntastic_check_on_open = 1
+"   let g:syntastic_check_on_wq = 0
+"   let g:syntastic_html_tidy_ignore_errors = [ 'trimming empty <i>',
+"         \'trimming empty <ul>',
+"         \'trimming empty <li>',
+"         \'trimming empty <button>',
+"         \'<svg> proprietary attribute "xmlns:xlink"' ]
 
   Plug 'ryanoasis/vim-devicons'
 
