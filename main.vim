@@ -106,7 +106,7 @@ call plug#begin('~/.config/nvim/plugged')
 
   Plug 'Yggdroot/indentLine'
     " TODO:
-    "   - maby configure
+    "   - mayby configure
 
   Plug 'scrooloose/nerdcommenter'
 
