@@ -77,6 +77,9 @@ call plug#begin('~/.config/nvim/plugged')
 
 "--------- Умная строка состояния --------------
 	Plug 'bling/vim-airline'
+    " TODO:
+    "   - configure
+    "   - move in separate file
 		let g:airline_powerline_fonts = 1
 		let g:airline#extensions#tabline#left_sep = ' '
 		let g:airline#extensions#tabline#left_alt_sep = '|'
@@ -101,11 +104,15 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'cohama/agit.vim', {'on': 'Agit'}
   Plug 'gregsexton/gitv', {'on': 'Gitv'}
 
-
   Plug 'Yggdroot/indentLine'
+    " TODO:
+    "   - maby configure
+
   Plug 'scrooloose/nerdcommenter'
 
   Plug 'neomake/neomake', {'on': 'Neomake'}
+    " TODO:
+    "   - configure
     autocmd! BufWritePost * Neomake
     let g:neomake_javascript_jshint_maker = {
     \ 'args': ['--verbose'],
