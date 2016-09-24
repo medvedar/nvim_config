@@ -45,7 +45,7 @@ autocmd InsertLeave * call SetUsLayout()
 call plug#begin('~/.config/nvim/plugged')
 
 "------------- Цветовые схемы ------------------
-"Plug 'morhetz/gruvbox'
+" Plug 'morhetz/gruvbox'
 	Plug 'jonathanfilip/vim-lucius'
 " Plug 'mhartington/oceanic-next'
 " Plug 'NLKNguyen/papercolor-theme'
@@ -96,12 +96,22 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'majutsushi/tagbar'
 	Plug 'Shougo/unite.vim'
   Plug 'Lokaltog/vim-easymotion'
+"--------------- Git ----------------------
   Plug 'tpope/vim-fugitive'
   Plug 'cohama/agit.vim', {'on': 'Agit'}
   Plug 'gregsexton/gitv', {'on': 'Gitv'}
+
+
   Plug 'Yggdroot/indentLine'
   Plug 'scrooloose/nerdcommenter'
-  Plug 'neomake/neomake'
+
+  Plug 'neomake/neomake', {'on': 'Neomake'}
+    autocmd! BufWritePost * Neomake
+    let g:neomake_javascript_jshint_maker = {
+    \ 'args': ['--verbose'],
+    \ 'errorformat': '%A%f: line %l\, col %v\, %m \(%t%*\d\)',
+    \ }
+    let g:neomake_javascript_enabled_makers = ['jshint']
 
 "-----------=== Поддержка языков ===------------
 "----- Python
@@ -175,7 +185,6 @@ call plug#begin('~/.config/nvim/plugged')
 "---------------=== Разное ===------------------
   Plug 'chreekat/vim-paren-crosshairs'
 
-" Plug 'benekastah/neomake'
 " Plug 'tpope/vim-commentary'
 
 
