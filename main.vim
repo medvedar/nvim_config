@@ -130,7 +130,7 @@ call plug#begin('~/.config/nvim/plugged')
 "----- Emmet
   Plug 'mattn/emmet-vim', { 'for': ['html','xhtml','css','sass','scss','xml', 'php'] }
     au FileType html,css,php,sass,scss,less imap <expr>jk  emmet#expandAbbrIntelligent("\<tab>")
-  Plug 'ap/vim-css-color', { 'for': ['html', 'xhtml', 'css', 'sass', 'scss', 'xml', 'php']}
+  Plug 'ap/vim-css-color', { 'for': ['css', 'sass', 'scss' ]}
 
   Plug 'elzr/vim-json', {'for': ['javascript', 'json']}
   Plug 'Valloric/MatchTagAlways'
@@ -236,11 +236,9 @@ map <F4> :NERDTreeToggle<CR>
 map <Home> :vsp<cr><C-w>l<esc>:e ./<cr>
 inoremap kj <Esc>
 nnoremap <esc> :noh<return><esc>
+"<TAB> for switch window
+nnoremap <silent> <Tab> :wincmd w<CR>
 
-"imap <expr><TAB> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
-"smap <expr><TAB> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-"nnoremap <silent> <right> :bn<CR>
-"nnoremap <silent> <left> :bp<CR>
 
 function! SetUsLayout()
 	silent !layoutswitch 0
