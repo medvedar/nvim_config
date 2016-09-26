@@ -163,34 +163,42 @@ call plug#begin('~/.config/nvim/plugged')
 
 "--------------=== Автокомплит ===---------
 "----- Deoplete
- Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
- Plug 'carlitux/deoplete-ternjs', {'for': ['javascript', 'javascript.jsx']}
-   let g:deoplete#enable_at_startup = 1
-   let g:tern_request_timeout = 1
-   if !exists('g:deoplete#omni#input_patterns')
-     let g:deoplete#omni#input_patterns = {}
-   endif
-   " let g:deoplete#disable_auto_complete = 1
-   autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
-   " omnifuncs
-   augroup omnifuncs
-     autocmd!
-     autocmd FileType css,scss setlocal omnifunc=csscomplete#CompleteCSS
-     autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-     autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-     autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-     autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-   augroup en
-
+" TODO:
+"   - configure autocomplete, jspc looks not work
+"   - move to separate file
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+    let g:deoplete#enable_at_startup = 1
+  Plug 'othree/jspc.vim', { 'for': ['javascript', 'javascript.jsx'] }
   Plug 'carlitux/deoplete-ternjs', {'for': ['javascript', 'javascript.jsx']}
+  Plug 'ternjs/tern_for_vim', { 'do': 'npm install', 'for': ['javascript', 'javascript.jsx'] }
+    let g:deoplete#omni#functions = {}
+    let g:deoplete#omni#functions.javascript = [
+        \ 'tern#Complete',
+        \ 'jspc#omni'
+      \]
+    set completeopt=longest,menuone,preview
+    let g:deoplete#sources = {}
+    let g:deoplete#sources['javascript.jsx'] = ['file', 'ultisnips', 'ternjs']
+    let g:tern_request_timeout = 1
+    if !exists('g:deoplete#omni#input_patterns')
+      let g:deoplete#omni#input_patterns = {}
+    endif
+    autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+
     let g:tern_request_timeout = 1
     let g:tern#command = ["tern"]
     let g:tern#arguments = ["--persistent"]
-  Plug 'ternjs/tern_for_vim', { 'do': 'npm install', 'for': ['javascript', 'javascript.jsx'] }
     let g:tern_show_argument_hints = 'on_hold'
     let g:tern_show_signature_in_pum = 1
-    autocmd FileType javascript setlocal omnifunc=tern#Complete
-  Plug 'othree/jspc.vim', { 'for': ['javascript', 'javascript.jsx'] }
+
+     " omnifuncs
+    augroup omnifuncs
+      autocmd!
+      autocmd FileType css,scss setlocal omnifunc=csscomplete#CompleteCSS
+      autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+      autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+      autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+    augroup en
 "---------------=== Разное ===------------------
   Plug 'chreekat/vim-paren-crosshairs'
 
