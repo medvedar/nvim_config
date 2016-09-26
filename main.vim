@@ -132,7 +132,7 @@ call plug#begin('~/.config/nvim/plugged')
     au FileType html,css,php,sass,scss,less imap <expr>jk  emmet#expandAbbrIntelligent("\<tab>")
   Plug 'ap/vim-css-color', { 'for': ['css', 'sass', 'scss' ]}
 
-  Plug 'elzr/vim-json', {'for': ['javascript', 'json']}
+  Plug 'elzr/vim-json', {'for': ['javascript','javascript.jsx', 'json']}
   Plug 'Valloric/MatchTagAlways'
 
   Plug 'othree/html5.vim',           { 'for': ['html', 'php'] }
@@ -152,8 +152,8 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'cakebaker/scss-syntax.vim', { 'for': ['scss']   }
     autocmd FileType scss set iskeyword+=-
 
-  Plug 'pangloss/vim-javascript',      { 'for': ['javascript', 'html'] }
-  Plug 'othree/javascript-libraries-syntax.vim'
+  Plug 'pangloss/vim-javascript',      { 'for': ['javascript', 'javascript.jsx', 'html'] }
+  Plug 'othree/javascript-libraries-syntax.vim',{ 'for': ['javascript', 'javascript.jsx', 'html'] }
     let g:used_javascript_libs = 'jquery,react,flux'
   Plug 'mxw/vim-jsx'
     let g:jsx_ext_required = 0
@@ -163,7 +163,8 @@ call plug#begin('~/.config/nvim/plugged')
 
 "--------------=== Автокомплит ===---------
 "----- Deoplete
- Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' } | Plug 'carlitux/deoplete-ternjs'
+ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+ Plug 'carlitux/deoplete-ternjs', {'for': ['javascript', 'javascript.jsx']}
    let g:deoplete#enable_at_startup = 1
    let g:tern_request_timeout = 1
    if !exists('g:deoplete#omni#input_patterns')
@@ -181,11 +182,11 @@ call plug#begin('~/.config/nvim/plugged')
      autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
    augroup en
 
-  Plug 'carlitux/deoplete-ternjs'
+  Plug 'carlitux/deoplete-ternjs', {'for': ['javascript', 'javascript.jsx']}
     let g:tern_request_timeout = 1
     let g:tern#command = ["tern"]
     let g:tern#arguments = ["--persistent"]
-  Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }
+  Plug 'ternjs/tern_for_vim', { 'do': 'npm install', 'for': ['javascript', 'javascript.jsx'] }
     let g:tern_show_argument_hints = 'on_hold'
     let g:tern_show_signature_in_pum = 1
     autocmd FileType javascript setlocal omnifunc=tern#Complete
