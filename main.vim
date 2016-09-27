@@ -159,6 +159,7 @@ call plug#begin('~/.config/nvim/plugged')
     let g:jsx_ext_required = 0
 
   Plug 'plasticboy/vim-markdown'
+  Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 
 
 "--------------=== Автокомплит ===---------
