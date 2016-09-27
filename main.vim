@@ -160,6 +160,11 @@ call plug#begin('~/.config/nvim/plugged')
 
   Plug 'plasticboy/vim-markdown'
   Plug 'Shougo/vimproc.vim', {'do' : 'make'}
+  Plug 'SirVer/ultisnips'
+    let g:UltiSnipsExpandTrigger="<tab>"
+    let g:UltiSnipsJumpForwardTrigger="<c-b>"
+    let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+  Plug 'honza/vim-snippets'
 
 
 "--------------=== Автокомплит ===---------
