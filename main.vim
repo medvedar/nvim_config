@@ -2,6 +2,7 @@
 set ignorecase smartcase
 set cursorline
 
+set foldmethod=syntax
 "set t_Co=256
 "set wildmode=list:longest
 set wildmenu
