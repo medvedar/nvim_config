@@ -168,17 +168,14 @@ call plug#begin('~/.config/nvim/plugged')
 "   - move to separate file
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
     let g:deoplete#enable_at_startup = 1
-  Plug 'othree/jspc.vim', { 'for': ['javascript', 'javascript.jsx'] }
+" Plug 'othree/jspc.vim', { 'for': ['javascript', 'javascript.jsx'] }
   Plug 'carlitux/deoplete-ternjs', {'for': ['javascript', 'javascript.jsx']}
   Plug 'ternjs/tern_for_vim', { 'do': 'npm install', 'for': ['javascript', 'javascript.jsx'] }
     let g:deoplete#omni#functions = {}
-    let g:deoplete#omni#functions.javascript = [
-        \ 'tern#Complete',
-        \ 'jspc#omni'
-      \]
+    let g:deoplete#omni#functions.javascript = 'tern#Complete'
     set completeopt=longest,menuone,preview
     let g:deoplete#sources = {}
-    let g:deoplete#sources['javascript.jsx'] = ['file', 'ultisnips', 'ternjs']
+    let g:deoplete#sources['javascript.jsx'] = ['file', 'ultisnips', 'ternjs', 'buffer', 'omni']
     let g:tern_request_timeout = 1
     if !exists('g:deoplete#omni#input_patterns')
       let g:deoplete#omni#input_patterns = {}
