@@ -111,7 +111,7 @@ call plug#begin('~/.config/nvim/plugged')
 
   Plug 'scrooloose/nerdcommenter'
 
-  Plug 'neomake/neomake', {'on': 'Neomake'}
+  Plug 'neomake/neomake'
     " TODO:
     "   - configure
     autocmd! BufWritePost * Neomake
