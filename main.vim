@@ -100,6 +100,8 @@ call plug#begin('~/.config/nvim/plugged')
 		let NERDTreeShowHidden=1
   Plug 'majutsushi/tagbar'
 	Plug 'Shougo/unite.vim'
+  Plug 'mileszs/ack.vim'
+    let g:ackprg = 'ag --vimgrep'
   Plug 'Lokaltog/vim-easymotion'
 "--------------- Git ----------------------
   Plug 'tpope/vim-fugitive'
