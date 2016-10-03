@@ -102,6 +102,8 @@ call plug#begin('~/.config/nvim/plugged')
 	Plug 'Shougo/unite.vim'
   Plug 'mileszs/ack.vim'
     let g:ackprg = 'ag --vimgrep'
+  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+  Plug 'junegunn/fzf.vim'
   Plug 'Lokaltog/vim-easymotion'
 "--------------- Git ----------------------
   Plug 'tpope/vim-fugitive'
