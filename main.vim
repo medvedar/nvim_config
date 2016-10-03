@@ -40,6 +40,7 @@ autocmd InsertLeave * set rnu
 autocmd InsertLeave * call SetUsLayout()
 
 
+
 "===============================================
 "===============    Плагины    =================
 "===============================================
@@ -175,17 +176,26 @@ call plug#begin('~/.config/nvim/plugged')
 "   - move to separate file
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
     let g:deoplete#enable_at_startup = 1
+    let g:deoplete#enable_ignore_case = 1
+    let g:deoplete#enable_smart_case = 1
+    let g:deoplete#enable_camel_case = 1
+    let g:deoplete#enable_refresh_always = 1
+    let g:deoplete#auto_refresh_delay = 200
+    let g:deoplete#max_abbr_width = 0
+    let g:deoplete#max_menu_width = 0
+"   let g:deoplete#auto_complete_delay = 1000
 " Plug 'othree/jspc.vim', { 'for': ['javascript', 'javascript.jsx'] }
   Plug 'carlitux/deoplete-ternjs', {'for': ['javascript', 'javascript.jsx']}
   Plug 'ternjs/tern_for_vim', { 'do': 'npm install', 'for': ['javascript', 'javascript.jsx'] }
     let g:deoplete#omni#functions = {}
-    let g:deoplete#omni#functions.javascript = 'tern#Complete'
+    let g:deoplete#omni#functions['javascript.jsx'] = 'tern#Complete'
     set completeopt=longest,menuone,preview
     let g:deoplete#sources = {}
     let g:deoplete#sources['javascript.jsx'] = ['file', 'ultisnips', 'ternjs', 'buffer', 'omni']
     let g:tern_request_timeout = 1
     if !exists('g:deoplete#omni#input_patterns')
       let g:deoplete#omni#input_patterns = {}
+      let g:deoplete#omni#input_patterns['javascript.jsx'] = '[^. \t]\.\%(\h\w*\)\?'
     endif
     autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 
@@ -237,6 +247,8 @@ call plug#end()
   LuciusDarkLowContrast
 "  set background=dark
 "  colorscheme gruvbox
+autocmd VimEnter *  set concealcursor=
+
 
 
 
