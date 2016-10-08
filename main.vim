@@ -147,7 +147,7 @@ call plug#begin('~/.config/nvim/plugged')
 "   let g:html5_microdata_attributes_complete     = 0
 "   let g:html5_aria_attributes_complete          = 0
 
-  Plug 'hail2u/vim-css3-syntax',    { 'for': ['html','css', 'sass', 'scss'] }
+  Plug 'hail2u/vim-css3-syntax',    { 'for': ['css', 'sass', 'scss'] }
        augroup VimCSS3Syntax
            autocmd!
            autocmd FileType css setlocal iskeyword+=-
@@ -158,13 +158,13 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'cakebaker/scss-syntax.vim', { 'for': ['scss']   }
     autocmd FileType scss set iskeyword+=-
 
-  Plug 'pangloss/vim-javascript',      { 'for': ['javascript', 'javascript.jsx', 'html'] }
-  Plug 'othree/javascript-libraries-syntax.vim',{ 'for': ['javascript', 'javascript.jsx', 'html'] }
+  Plug 'pangloss/vim-javascript',      { 'for': ['javascript', 'javascript.jsx'] }
+  Plug 'othree/javascript-libraries-syntax.vim',{ 'for': ['javascript', 'javascript.jsx'] }
     let g:used_javascript_libs = 'jquery,react,flux'
-  Plug 'mxw/vim-jsx'
+  Plug 'mxw/vim-jsx',      { 'for': ['javascript', 'javascript.jsx'] }
     let g:jsx_ext_required = 0
 
-  Plug 'plasticboy/vim-markdown'
+  Plug 'plasticboy/vim-markdown', { 'for': 'markdown'}
   Plug 'Shougo/vimproc.vim', {'do' : 'make'}
   Plug 'SirVer/ultisnips'
     let g:UltiSnipsExpandTrigger="<tab>"
@@ -196,6 +196,7 @@ call plug#begin('~/.config/nvim/plugged')
     set completeopt=longest,menuone,preview
     let g:deoplete#sources = {}
     let g:deoplete#sources['javascript.jsx'] = ['file', 'ultisnips', 'ternjs', 'buffer', 'omni']
+    let g:deoplete#sources.html = ['file', 'buffer', 'omni']
     let g:tern_request_timeout = 1
     if !exists('g:deoplete#omni#input_patterns')
       let g:deoplete#omni#input_patterns = {}
