@@ -111,6 +111,7 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'gregsexton/gitv', {'on': 'Gitv'}
 
   Plug 'Yggdroot/indentLine'
+  let g:indentLine_faster = 1
     " TODO:
     "   - mayby configure
 
