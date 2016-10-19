@@ -47,7 +47,7 @@ autocmd InsertLeave * call SetUsLayout()
 call plug#begin('~/.config/nvim/plugged')
 
 "------------- Цветовые схемы ------------------
-" Plug 'morhetz/gruvbox'
+  Plug 'morhetz/gruvbox'
 	Plug 'jonathanfilip/vim-lucius'
 " Plug 'mhartington/oceanic-next'
 " Plug 'NLKNguyen/papercolor-theme'
@@ -75,7 +75,8 @@ call plug#begin('~/.config/nvim/plugged')
           \ ['  Bookmarks:'],
           \ 'bookmarks',
           \ ]
-    let g:startify_bookmarks = [ '~/.config/nvim/init.vim' ]
+    let g:startify_bookmarks = [ '~/.config/nvim/main.vim',
+          \ '~/.config/vim/vimrc']
 
 "--------- Умная строка состояния --------------
 	Plug 'bling/vim-airline'
@@ -86,6 +87,7 @@ call plug#begin('~/.config/nvim/plugged')
 		let g:airline#extensions#tabline#left_sep = ' '
 		let g:airline#extensions#tabline#left_alt_sep = '|'
 		let g:airline#extensions#tabline#enabled=1
+    let g:airline#extensions#tagbar#enabled = 0
 		set laststatus=2
 
 "--------- Визуализация undo tree --------------
@@ -102,8 +104,6 @@ call plug#begin('~/.config/nvim/plugged')
 	Plug 'Shougo/unite.vim'
   Plug 'mileszs/ack.vim'
     let g:ackprg = 'ag --vimgrep'
-  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-  Plug 'junegunn/fzf.vim'
   Plug 'Lokaltog/vim-easymotion'
 "--------------- Git ----------------------
   Plug 'tpope/vim-fugitive'
@@ -129,9 +129,7 @@ call plug#begin('~/.config/nvim/plugged')
 
 "-----------=== Поддержка языков ===------------
 "----- Python
-"	Plug 'klen/python-mode'
-"		let g:pymode_lint_cwindow = 0
-		"let g:pymode_rope = 0
+  Plug 'zchee/deoplete-jedi'
 
 
 "----- Emmet
@@ -149,6 +147,7 @@ call plug#begin('~/.config/nvim/plugged')
 "   let g:html5_aria_attributes_complete          = 0
 
   Plug 'hail2u/vim-css3-syntax',    { 'for': ['css', 'sass', 'scss'] }
+    au BufRead,BufNewFile *.scss set filetype=scss.css
        augroup VimCSS3Syntax
            autocmd!
            autocmd FileType css setlocal iskeyword+=-
@@ -221,43 +220,27 @@ call plug#begin('~/.config/nvim/plugged')
     augroup en
 "---------------=== Разное ===------------------
   Plug 'chreekat/vim-paren-crosshairs'
-
-" Plug 'tpope/vim-commentary'
-
-
   Plug 'tpope/vim-surround'
   Plug 'Raimondi/delimitMate'
 "Plug 'airblade/vim-gitgutter'
-
-
-"  Plug 'scrooloose/syntastic', { 'for': ['html','css', 'sass', 'scss'] }
-"  set statusline+=%#warningmsg#
-"  set statusline+=%{SyntasticStatuslineFlag()}
-"   set statusline+=%*
-
-"   let g:syntastic_always_populate_loc_list = 1
-"   let g:syntastic_auto_loc_list = 1
-"   let g:syntastic_check_on_open = 1
-"   let g:syntastic_check_on_wq = 0
-"   let g:syntastic_html_tidy_ignore_errors = [ 'trimming empty <i>',
-"         \'trimming empty <ul>',
-"         \'trimming empty <li>',
-"         \'trimming empty <button>',
-"         \'<svg> proprietary attribute "xmlns:xlink"' ]
-
-  Plug 'ryanoasis/vim-devicons'
+"  Plug 'ryanoasis/vim-devicons'
 
 call plug#end()
 
-  colorscheme lucius
-  LuciusDarkLowContrast
-"  set background=dark
-"  colorscheme gruvbox
+colorscheme lucius
+LuciusLightHighContrast
+"set background=light
+"colorscheme gruvbox
 autocmd VimEnter *  set concealcursor=
 
-
-
-
+au BufNewFile,BufRead *.py
+    \ set tabstop=4
+    \ set softtabstop=4
+    \ set shiftwidth=4
+    \ set textwidth=79
+    \ set expandtab
+    \ set autoindent
+    \ set fileformat=unix
 
 "map       <Space>      <Leader>
 nnoremap <silent> <leader>bb :<C-u>Unite buffer<CR>
