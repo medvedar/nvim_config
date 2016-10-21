@@ -48,9 +48,9 @@ autocmd InsertLeave * call SetUsLayout()
 call plug#begin('~/.config/nvim/plugged')
 
 "------------- Цветовые схемы ------------------
-  Plug 'morhetz/gruvbox'
+  "Plug 'morhetz/gruvbox'
 	Plug 'jonathanfilip/vim-lucius'
-  Plug 'iCyMind/NeoSolarized'
+  "Plug 'iCyMind/NeoSolarized'
 " Plug 'mhartington/oceanic-next'
 " Plug 'NLKNguyen/papercolor-theme'
   Plug 'vim-airline/vim-airline-themes'
@@ -131,10 +131,12 @@ call plug#begin('~/.config/nvim/plugged')
 
 "-----------=== Поддержка языков ===------------
 "----- Python
-  Plug 'zchee/deoplete-jedi'
-  Plug 'klen/python-mode'
+  Plug 'zchee/deoplete-jedi', {'for': ['python'] }
+  Plug 'klen/python-mode', {'for': ['python'] }
     let g:pymode_rope_completion = 0
-  Plug 'bfredl/nvim-ipy'
+  Plug 'bfredl/nvim-ipy', {'for': ['python'] }
+  Plug 'carlitux/deoplete-ternjs', {'for': ['javascript', 'javascript.jsx']}
+  Plug 'ternjs/tern_for_vim', { 'do': 'npm install', 'for': ['javascript', 'javascript.jsx'] }
 
 
 "----- Emmet
@@ -181,28 +183,25 @@ call plug#begin('~/.config/nvim/plugged')
 "--------------=== Автокомплит ===---------
 "----- Deoplete
 " TODO:
-"   - configure autocomplete, jspc looks not work
+"   - configure autocomplete
 "   - move to separate file
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+    set completeopt=longest,menuone,preview
     let g:deoplete#enable_at_startup = 1
     let g:deoplete#enable_ignore_case = 1
     let g:deoplete#enable_smart_case = 1
     let g:deoplete#enable_camel_case = 1
     let g:deoplete#enable_refresh_always = 1
     let g:deoplete#auto_refresh_delay = 200
-    let g:deoplete#max_abbr_width = 0
-    let g:deoplete#max_menu_width = 0
-"   let g:deoplete#auto_complete_delay = 1000
-" Plug 'othree/jspc.vim', { 'for': ['javascript', 'javascript.jsx'] }
-  Plug 'carlitux/deoplete-ternjs', {'for': ['javascript', 'javascript.jsx']}
-  Plug 'ternjs/tern_for_vim', { 'do': 'npm install', 'for': ['javascript', 'javascript.jsx'] }
+    let g:deoplete#max_abbr_width = 25
+    let g:deoplete#max_menu_width = 40
+    let g:deoplete#auto_complete_delay = 200
     let g:deoplete#omni#functions = {}
-    let g:deoplete#omni#functions['javascript.jsx'] = 'tern#Complete'
-    set completeopt=longest,menuone,preview
+    let g:deoplete#omni#functions['javascript.jsx'] = ['tern#Complete']
     let g:deoplete#sources = {}
-    let g:deoplete#sources['javascript.jsx'] = ['file', 'ultisnips', 'ternjs', 'buffer', 'omni']
+    let g:deoplete#sources['javascript.jsx'] = ['file', 'ultisnips', 'ternjs', 'buffer']
     let g:deoplete#sources.html = ['file', 'buffer', 'omni']
-    let g:tern_request_timeout = 1
+    let g:deoplete#sources.python = ['file', 'buffer', 'ultisnips', 'jedi']
     if !exists('g:deoplete#omni#input_patterns')
       let g:deoplete#omni#input_patterns = {}
       let g:deoplete#omni#input_patterns['javascript.jsx'] = '[^. \t]\.\%(\h\w*\)\?'
