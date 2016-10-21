@@ -3,8 +3,9 @@ set ignorecase smartcase
 set cursorline
 
 "set foldmethod=syntax
-"set t_Co=256
+set t_Co=256
 "set wildmode=list:longest
+set termguicolors
 set wildmenu
 set wildignore=*.swp,*.bak,*.pyc,*/.git/**/*,*/.hg/**/*,*/.svn/**/*
 set wildignorecase
@@ -49,6 +50,7 @@ call plug#begin('~/.config/nvim/plugged')
 "------------- Цветовые схемы ------------------
   Plug 'morhetz/gruvbox'
 	Plug 'jonathanfilip/vim-lucius'
+  Plug 'iCyMind/NeoSolarized'
 " Plug 'mhartington/oceanic-next'
 " Plug 'NLKNguyen/papercolor-theme'
   Plug 'vim-airline/vim-airline-themes'
@@ -130,6 +132,9 @@ call plug#begin('~/.config/nvim/plugged')
 "-----------=== Поддержка языков ===------------
 "----- Python
   Plug 'zchee/deoplete-jedi'
+  Plug 'klen/python-mode'
+    let g:pymode_rope_completion = 0
+  Plug 'bfredl/nvim-ipy'
 
 
 "----- Emmet
@@ -227,8 +232,10 @@ call plug#begin('~/.config/nvim/plugged')
 
 call plug#end()
 
+"colorscheme NeoSolarized
 colorscheme lucius
 LuciusLightHighContrast
+
 "set background=light
 "colorscheme gruvbox
 autocmd VimEnter *  set concealcursor=
