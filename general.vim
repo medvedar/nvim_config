@@ -7,6 +7,7 @@ set cursorline
 "set foldmethod=syntax
 set t_Co=256
 "set wildmode=list:longest
+set hidden
 set termguicolors
 set wildmenu
 set wildignore=*.swp,*.bak,*.pyc,*/.git/**/*,*/.hg/**/*,*/.svn/**/*

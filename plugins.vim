@@ -5,11 +5,10 @@ endf
 fu! s:end()
 	call dein#end()
 	if dein#check_install()
-	  call dein#install()
+   call dein#install()
 	endif
   call dein#call_hook('source')
 endf
-
 
 fu! s:parser(args)
     return a:args
@@ -36,8 +35,6 @@ fu! s:fetch()
 	call dein#add('Shougo/dein.vim')
 endf
 
-
-
 call s:begin(g:settings.plugin_bundle_dir)
 call s:fetch()
 
@@ -53,9 +50,15 @@ call s:fetch()
       call s:defind_hooks('vim-startify')
     endif
   call s:add('Lokaltog/vim-easymotion')
+  call s:add('Raimondi/delimitMate')
+  call s:add('vim-airline/vim-airline', { 'if' : 0 })
+    if s:tap('vim-airline')
+      call s:defind_hooks('vim-airline')
+    endif
+  call s:add('vim-airline/vim-airline-themes', { 'if' : 0 })
+  call s:add('scrooloose/nerdcommenter')
 
 call s:end()
 
 filetype plugin indent on
 syntax enable
-
