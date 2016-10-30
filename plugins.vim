@@ -1,3 +1,9 @@
+"fu! s:plugin_list_append()
+"endf
+"let g:plugin_list = []
+"s:plugin_list_append('')
+
+
 fu! s:begin(path)
 	call dein#begin(a:path)
 endf
@@ -8,6 +14,7 @@ fu! s:end()
    call dein#install()
 	endif
   call dein#call_hook('source')
+  "call dein#recache_runtimepath()
 endf
 
 fu! s:parser(args)
@@ -39,6 +46,7 @@ call s:begin(g:settings.plugin_bundle_dir)
 call s:fetch()
 
 	call s:add('Shougo/vimproc.vim', {'build': 'make'})
+  call s:add('euclio/vim-markdown-composer', { 'build': 'cargo build --release' })
 	call s:add('jonathanfilip/vim-lucius')
   call s:add('Shougo/unite.vim')
   call s:add('Shougo/deoplete.nvim')
@@ -51,12 +59,28 @@ call s:fetch()
     endif
   call s:add('Lokaltog/vim-easymotion')
   call s:add('Raimondi/delimitMate')
-  call s:add('vim-airline/vim-airline', { 'if' : 0 })
+    let delimitMate_expand_cr = 2
+    let delimitMate_expand_space = 1 " {|} => { | }
+  call s:add('vim-airline/vim-airline', { 'if' : 1 })
     if s:tap('vim-airline')
       call s:defind_hooks('vim-airline')
     endif
-  call s:add('vim-airline/vim-airline-themes', { 'if' : 0 })
+  call s:add('vim-airline/vim-airline-themes', { 'if' : 1 })
   call s:add('scrooloose/nerdcommenter')
+  call s:add('OmniSharp/omnisharp-vim', { 'if' : 1 })
+    if s:tap('omnisharp-vim')
+      let g:OmniSharp_selector_ui = 'unite'
+      let g:Omnisharp_start_server = 1
+      let g:Omnisharp_stop_server = 1
+      let g:OmniSharp_timeout = 1
+    endif
+  call s:add('tpope/vim-fugitive')
+  call s:add('Shougo/vimfiler.vim')
+    let g:vimfiler_as_default_explorer = 1
+  call s:add('edkolev/tmuxline.vim')
+  call s:add('junegunn/limelight.vim')
+  call s:add('SirVer/ultisnips')
+  call s:add('honza/vim-snippets')
 
 call s:end()
 

@@ -3,6 +3,7 @@ set backspace=indent,eol,start
 
 set ignorecase smartcase
 set cursorline
+set colorcolumn=80
 
 "set foldmethod=syntax
 set t_Co=256
@@ -45,5 +46,6 @@ LuciusLightHighContrast
 
 inoremap kj <Esc>
 nnoremap <esc> :noh<return><esc>
+map <space> <Plug>(easymotion-prefix)
 "<TAB> for switch window
 nnoremap <silent> <Tab> :wincmd w<CR>
