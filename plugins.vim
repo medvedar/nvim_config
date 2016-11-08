@@ -46,40 +46,49 @@ call s:begin(g:settings.plugin_bundle_dir)
 call s:fetch()
 
 	call s:add('Shougo/vimproc.vim', {'build': 'make'})
-  call s:add('euclio/vim-markdown-composer', { 'build': 'cargo build --release' })
-	call s:add('jonathanfilip/vim-lucius')
   call s:add('Shougo/unite.vim')
+  call s:add('Shougo/vimfiler.vim')
+    let g:vimfiler_as_default_explorer = 1
+  call s:add('neomake/neomake', { 'on_cmd': 'Neomake' })
+    autocmd! BufWritePost * Neomake
+
+  call s:add('euclio/vim-markdown-composer', {
+        \ 'build': 'cargo build --release',
+        \ 'on_ft': 'markdown'})
+  call s:add('plasticboy/vim-markdown', {'on_ft': 'markdown'})
+
+	call s:add('jonathanfilip/vim-lucius')
+
   call s:add('Shougo/deoplete.nvim')
     if s:tap('deoplete.nvim')
       call s:defind_hooks('deoplete.nvim')
     endif
+  call s:add('zchee/deoplete-jedi', { 'on_ft': 'python' })
+
   call s:add('mhinz/vim-startify')
     if s:tap('vim-startify')
       call s:defind_hooks('vim-startify')
     endif
+
   call s:add('Lokaltog/vim-easymotion')
   call s:add('Raimondi/delimitMate')
     let delimitMate_expand_cr = 2
     let delimitMate_expand_space = 1 " {|} => { | }
+
   call s:add('vim-airline/vim-airline', { 'if' : 1 })
     if s:tap('vim-airline')
       call s:defind_hooks('vim-airline')
     endif
   call s:add('vim-airline/vim-airline-themes', { 'if' : 1 })
+
   call s:add('scrooloose/nerdcommenter')
-  call s:add('OmniSharp/omnisharp-vim', { 'if' : 1 })
-    if s:tap('omnisharp-vim')
-      let g:OmniSharp_selector_ui = 'unite'
-      let g:Omnisharp_start_server = 1
-      let g:Omnisharp_stop_server = 1
-      let g:OmniSharp_timeout = 1
-    endif
   call s:add('tpope/vim-fugitive')
-  call s:add('Shougo/vimfiler.vim')
-    let g:vimfiler_as_default_explorer = 1
   call s:add('edkolev/tmuxline.vim')
-  call s:add('junegunn/limelight.vim')
+
   call s:add('SirVer/ultisnips')
+    let g:UltiSnipsExpandTrigger="<tab>"
+    let g:UltiSnipsJumpForwardTrigger="<c-b>"
+    let g:UltiSnipsJumpBackwardTrigger="<c-z>"
   call s:add('honza/vim-snippets')
 
 call s:end()
