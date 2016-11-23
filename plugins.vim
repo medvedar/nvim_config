@@ -52,10 +52,18 @@ call s:fetch()
   call s:add('neomake/neomake', { 'on_cmd': 'Neomake' })
     autocmd! BufWritePost * Neomake
 
+
+  call s:add('othree/html5.vim')
+
   call s:add('euclio/vim-markdown-composer', {
         \ 'build': 'cargo build --release',
         \ 'on_ft': 'markdown'})
+  call s:add('godlygeek/tabular')
   call s:add('plasticboy/vim-markdown', {'on_ft': 'markdown'})
+    let g:vim_markdown_folding_disabled = 1
+
+  "call s:add('gabrielelana/vim-markdown', {'on_ft': 'markdown'})
+    "let g:markdown_enable_spell_checking = 0
 
 	call s:add('jonathanfilip/vim-lucius')
 
