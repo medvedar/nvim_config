@@ -20,9 +20,9 @@ set noswapfile
 set linebreak " переносить целые слова
 
 " Show trailing whitespace as red
-highlight ExtraWhitespace ctermbg=darkred guibg=#382424
-autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
-autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+"highlight ExtraWhitespace ctermbg=darkred guibg=#382424
+"autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
+"autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
 
 " Табуляция
 set shiftwidth=2
@@ -54,53 +54,22 @@ call plug#begin('~/.config/nvim/plugged')
 
 "------------ Стартовый экран ------------------
 	Plug 'mhinz/vim-startify'
-    let g:startify_custom_header =
-          \ map(split(system('date'), '\n'), '"   ". v:val') + [
-          \ ' ____    __    ____  _______  __        ______   ______   .___  ___.  _______',
-          \ ' \   \  /  \  /   / |   ____||  |      /      | /  __  \  |   \/   | |   ____|',
-          \ '  \   \/    \/   /  |  |__   |  |     |  ,---- |  |  |  | |  \  /  | |  |__',
-          \ '   \            /   |   __|  |  |     |  |     |  |  |  | |  |\/|  | |   __|',
-          \ '    \    /\    /    |  |____ |  `----.|  `----.|  `--   | |  |  |  | |  |____',
-          \ '     \__/  \__/     |_______||_______| \______| \______/  |__|  |__| |_______|',
-          \ '']
-    let g:startify_custom_footer = [
-          \'',
-          \'']
-    let g:startify_list_order = [
-          \ ['  Most recently used files:'],
-          \ 'files',
-          \ ['  Sessions:'],
-          \ 'sessions',
-          \ ['  Bookmarks:'],
-          \ 'bookmarks',
-          \ ]
-    let g:startify_bookmarks = [ '~/.config/nvim/main.vim',
-          \ '~/.config/vim/vimrc']
+    execute 'source' fnamemodify(expand('<sfile>'), ':h').'/conf/vim-startify.vim'
 
 "--------- Умная строка состояния --------------
 	Plug 'bling/vim-airline'
-    " TODO:
-    "   - configure
-    "   - move in separate file
-		let g:airline_powerline_fonts = 1
-		let g:airline#extensions#tabline#left_sep = ' '
-		let g:airline#extensions#tabline#left_alt_sep = '|'
-		let g:airline#extensions#tabline#enabled=1
-    let g:airline#extensions#tagbar#enabled = 0
-		set laststatus=2
-
+    execute 'source' fnamemodify(expand('<sfile>'), ':h').'/conf/vim-airline.vim'
 "--------- Визуализация undo tree --------------
 	Plug 'mbbill/undotree'
 		if has("persistent_undo")
 			set undodir=~/.config/nvim/.undodir/
 			set undofile
 		endif
-
+     
 "------- Навигация по коду/проекту -------------
-	Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
-		let NERDTreeShowHidden=1
   Plug 'majutsushi/tagbar'
-	Plug 'Shougo/unite.vim'
+  Plug 'Shougo/unite.vim'
+    let g:unite_source_history_yank_enable = 1
   Plug 'mileszs/ack.vim'
     let g:ackprg = 'ag --vimgrep'
   Plug 'Lokaltog/vim-easymotion'
@@ -113,6 +82,9 @@ call plug#begin('~/.config/nvim/plugged')
   let g:indentLine_faster = 1
     " TODO:
     "   - mayby configure
+    set list
+    set listchars=""                      " reset
+    set listchars+=trail:●
 
   Plug 'scrooloose/nerdcommenter'
 
@@ -168,59 +140,22 @@ call plug#begin('~/.config/nvim/plugged')
 
   Plug 'plasticboy/vim-markdown', { 'for': 'markdown'}
   Plug 'Shougo/vimproc.vim', {'do' : 'make'}
+  Plug 'Shougo/vimfiler.vim'
+    let g:loaded_netrwPlugin = 1
+    let g:vimfiler_as_default_explorer = 1
+
   Plug 'SirVer/ultisnips'
     let g:UltiSnipsExpandTrigger="<tab>"
     let g:UltiSnipsJumpForwardTrigger="<c-b>"
     let g:UltiSnipsJumpBackwardTrigger="<c-z>"
   Plug 'honza/vim-snippets'
 
-
 "--------------=== Автокомплит ===---------
 "----- Deoplete
 " TODO:
 "   - configure autocomplete
-"   - move to separate file
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-    set completeopt=longest,menuone,preview
-    let g:deoplete#enable_at_startup = 1
-    let g:deoplete#enable_ignore_case = 1
-    let g:deoplete#enable_smart_case = 1
-    let g:deoplete#enable_camel_case = 1
-    let g:deoplete#enable_refresh_always = 1
-    let g:deoplete#auto_refresh_delay = 200
-    let g:deoplete#max_abbr_width = 25
-    let g:deoplete#max_menu_width = 40
-    let g:deoplete#auto_complete_delay = 200
-    let g:deoplete#omni#functions = {}
-    let g:deoplete#omni#functions['javascript.jsx'] = ['tern#Complete']
-    let g:deoplete#keyword_patterns = {}
-    let g:deoplete#keyword_patterns.scss = '\\?[$]\w*'
-    let g:deoplete#sources = {}
-    let g:deoplete#sources['javascript.jsx'] = ['file', 'ultisnips', 'ternjs', 'buffer']
-    let g:deoplete#sources.html = ['file', 'buffer', 'omni']
-    let g:deoplete#sources['scss'] = ['ultisnips', 'buffer', 'file', 'omni']
-    let g:deoplete#sources.python = ['file', 'buffer', 'ultisnips', 'jedi']
-    if !exists('g:deoplete#omni#input_patterns')
-      let g:deoplete#omni#input_patterns = {}
-      let g:deoplete#omni#input_patterns['javascript.jsx'] = '[^. \t]\.\%(\h\w*\)\?'
-    endif
-    autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
-
-    let g:tern_request_timeout = 1
-    let g:tern#command = ["tern"]
-    let g:tern#arguments = ["--persistent"]
-    let g:tern_show_argument_hints = 'on_hold'
-    let g:tern_show_signature_in_pum = 1
-
-     " omnifuncs
-    augroup omnifuncs
-      autocmd!
-      autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-      autocmd FileType scss setlocal omnifunc=csscomplete#CompleteCSS
-      autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-      autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-      autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-    augroup en
+    execute 'source' fnamemodify(expand('<sfile>'), ':h').'/conf/deoplete.vim'
 "---------------=== Разное ===------------------
   Plug 'chreekat/vim-paren-crosshairs'
   Plug 'tpope/vim-surround'
@@ -246,12 +181,11 @@ au BufNewFile,BufRead *.py
     \ set fileformat=unix
 
 "map       <Space>      <Leader>
-nnoremap <silent> <leader>bb :<C-u>Unite buffer<CR>
+nnoremap <silent> <Home> :<C-u>Unite -quick-match buffer file<CR>
 map <space> <Plug>(easymotion-prefix)
 map <F2> :UndotreeToggle<CR>
 map <F3> :TagbarToggle<CR>
-map <F4> :NERDTreeToggle<CR>
-map <Home> :vsp<cr><C-w>l<esc>:e ./<cr>
+map <F4> :VimFilerExplorer<CR>
 inoremap kj <Esc>
 nnoremap <esc> :noh<return><esc>
 "<TAB> for switch window
