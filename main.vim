@@ -50,9 +50,6 @@ call plug#begin('~/.config/nvim/plugged')
 "------------- Цветовые схемы ------------------
   "Plug 'morhetz/gruvbox'
 	Plug 'jonathanfilip/vim-lucius'
-  "Plug 'iCyMind/NeoSolarized'
-" Plug 'mhartington/oceanic-next'
-" Plug 'NLKNguyen/papercolor-theme'
   Plug 'vim-airline/vim-airline-themes'
 
 "------------ Стартовый экран ------------------
@@ -123,18 +120,17 @@ call plug#begin('~/.config/nvim/plugged')
     " TODO:
     "   - configure
     autocmd! BufWritePost * Neomake
-    let g:neomake_javascript_jshint_maker = {
-    \ 'args': ['--verbose'],
-    \ 'errorformat': '%A%f: line %l\, col %v\, %m \(%t%*\d\)',
-    \ }
-    let g:neomake_javascript_enabled_makers = ['jshint']
+    "let g:neomake_javascript_jshint_maker = {
+    "\ 'args': ['--verbose'],
+    "\ 'errorformat': '%A%f: line %l\, col %v\, %m \(%t%*\d\)',
+    "\ }
+    "let g:neomake_javascript_enabled_makers = ['jshint']
 
 "-----------=== Поддержка языков ===------------
 "----- Python
   Plug 'zchee/deoplete-jedi', {'for': ['python'] }
   Plug 'klen/python-mode', {'for': ['python'] }
     let g:pymode_rope_completion = 0
-  Plug 'bfredl/nvim-ipy', {'for': ['python'] }
   Plug 'carlitux/deoplete-ternjs', {'for': ['javascript', 'javascript.jsx']}
   Plug 'ternjs/tern_for_vim', { 'do': 'npm install', 'for': ['javascript', 'javascript.jsx'] }
 
@@ -148,22 +144,21 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'Valloric/MatchTagAlways'
 
   Plug 'othree/html5.vim',           { 'for': ['html', 'php'] }
-"   let g:html5_event_handler_attributes_complete = 0
-"   let g:html5_rdfa_attributes_complete          = 0
-"   let g:html5_microdata_attributes_complete     = 0
-"   let g:html5_aria_attributes_complete          = 0
+    let g:html5_event_handler_attributes_complete = 0
+    let g:html5_rdfa_attributes_complete          = 0
+    let g:html5_microdata_attributes_complete     = 0
+    let g:html5_aria_attributes_complete          = 0
 
-  Plug 'hail2u/vim-css3-syntax',    { 'for': ['css', 'sass', 'scss'] }
-    au BufRead,BufNewFile *.scss set filetype=scss.css
+  Plug 'hail2u/vim-css3-syntax'
+  Plug 'cakebaker/scss-syntax.vim'
        augroup VimCSS3Syntax
-           autocmd!
-           autocmd FileType css setlocal iskeyword+=-
+        autocmd!
+        autocmd FileType css setlocal iskeyword+=-
+        autocmd FileType scss setlocal iskeyword+=-
        augroup END
 
 " Plug 'groenewege/vim-less',       { 'for': ['less']   }
 
-  Plug 'cakebaker/scss-syntax.vim', { 'for': ['scss']   }
-    autocmd FileType scss set iskeyword+=-
 
   Plug 'pangloss/vim-javascript',      { 'for': ['javascript', 'javascript.jsx'] }
   Plug 'othree/javascript-libraries-syntax.vim',{ 'for': ['javascript', 'javascript.jsx'] }
@@ -198,9 +193,12 @@ call plug#begin('~/.config/nvim/plugged')
     let g:deoplete#auto_complete_delay = 200
     let g:deoplete#omni#functions = {}
     let g:deoplete#omni#functions['javascript.jsx'] = ['tern#Complete']
+    let g:deoplete#keyword_patterns = {}
+    let g:deoplete#keyword_patterns.scss = '\\?[$]\w*'
     let g:deoplete#sources = {}
     let g:deoplete#sources['javascript.jsx'] = ['file', 'ultisnips', 'ternjs', 'buffer']
     let g:deoplete#sources.html = ['file', 'buffer', 'omni']
+    let g:deoplete#sources['scss'] = ['ultisnips', 'buffer', 'file', 'omni']
     let g:deoplete#sources.python = ['file', 'buffer', 'ultisnips', 'jedi']
     if !exists('g:deoplete#omni#input_patterns')
       let g:deoplete#omni#input_patterns = {}
@@ -217,7 +215,8 @@ call plug#begin('~/.config/nvim/plugged')
      " omnifuncs
     augroup omnifuncs
       autocmd!
-      autocmd FileType css,scss setlocal omnifunc=csscomplete#CompleteCSS
+      autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+      autocmd FileType scss setlocal omnifunc=csscomplete#CompleteCSS
       autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
       autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
       autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
@@ -226,8 +225,6 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'chreekat/vim-paren-crosshairs'
   Plug 'tpope/vim-surround'
   Plug 'Raimondi/delimitMate'
-"Plug 'airblade/vim-gitgutter'
-"  Plug 'ryanoasis/vim-devicons'
 
 call plug#end()
 
