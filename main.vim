@@ -109,6 +109,8 @@ call plug#begin('~/.config/nvim/plugged')
 
 "----- Emmet
   Plug 'mattn/emmet-vim', { 'for': ['html','xhtml','css','sass','scss','xml', 'php'] }
+    let g:user_emmet_complete_tag=1
+    let g:user_emmet_settings=json_decode(join(readfile(expand('~/.snippets_custom.json')), "\n"))
     au FileType html,css,php,sass,scss,less imap <expr>jk  emmet#expandAbbrIntelligent("\<tab>")
   Plug 'ap/vim-css-color', { 'for': ['css', 'sass', 'scss' ]}
 
@@ -160,6 +162,7 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'chreekat/vim-paren-crosshairs'
   Plug 'tpope/vim-surround'
   Plug 'Raimondi/delimitMate'
+
 
 call plug#end()
 
