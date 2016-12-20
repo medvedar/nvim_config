@@ -1,3 +1,10 @@
+function! BuildComposer(info)
+  if a:info.status != 'unchanged' || a:info.force
+    !cargo build --release
+    UpdateRemotePlugins
+  endif
+endfunction
+
 " Настраиваем поиск
 set ignorecase smartcase
 set cursorline
@@ -128,7 +135,10 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'mxw/vim-jsx',      { 'for': ['javascript', 'javascript.jsx'] }
     let g:jsx_ext_required = 0
 
+  Plug 'euclio/vim-markdown-composer', { 'do': function('BuildComposer'), 'for': ['markdown'] }
   Plug 'plasticboy/vim-markdown', { 'for': 'markdown'}
+    let g:vim_markdown_folding_disabled = 1
+
   Plug 'Shougo/vimproc.vim', {'do' : 'make'}
   Plug 'Shougo/vimfiler.vim'
     let g:loaded_netrwPlugin = 1
@@ -154,6 +164,8 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'chreekat/vim-paren-crosshairs'
   Plug 'tpope/vim-surround'
   Plug 'Raimondi/delimitMate'
+    let delimitMate_expand_cr = 2
+    let delimitMate_expand_space = 1
 
 
 call plug#end()
