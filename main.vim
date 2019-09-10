@@ -42,8 +42,6 @@ autocmd InsertLeave * set rnu
 " Англ. по выходе из insert
 autocmd InsertLeave * call SetUsLayout()
 
-
-
 "===============================================
 "===============    Плагины    =================
 "===============================================
@@ -62,27 +60,27 @@ call plug#begin('~/.config/nvim/plugged')
 	Plug 'bling/vim-airline'
     execute 'source' fnamemodify(expand('<sfile>'), ':h').'/conf/vim-airline.vim'
 "--------- Визуализация undo tree --------------
-  Plug 'mbbill/undotree'
-  if has("persistent_undo")
-    set undodir=~/.config/nvim/.undodir/
+  "Plug 'mbbill/undotree'
+  Plug 'simnalamburt/vim-mundo'
     set undofile
-  endif
+    set undodir=~/.config/nvim/.undodir/
 
 "------- Навигация по коду/проекту -------------
-  Plug 'majutsushi/tagbar'
-  Plug 'mtscout6/vim-tagbar-css'
+  Plug 'majutsushi/tagbar', {'on': ['TagbarToggle', 'Tagbar']}
+  Plug 'mtscout6/vim-tagbar-css', {'for': ['css', 'scss']}
   Plug 'Shougo/unite.vim'
     let g:unite_source_history_yank_enable = 1
-  Plug 'mileszs/ack.vim'
+  "Plug 'Shougo/denite.nvim'
+  Plug 'mileszs/ack.vim', {'on': ['Ack']}
     let g:ackprg = 'ag --vimgrep'
   Plug 'Lokaltog/vim-easymotion'
 "--------------- Git ----------------------
   Plug 'tpope/vim-fugitive'
   Plug 'cohama/agit.vim', {'on': 'Agit'}
-  Plug 'gregsexton/gitv', {'on': 'Gitv'}
+  "Plug 'gregsexton/gitv', {'on': 'Gitv'}
 
-  Plug 'Yggdroot/indentLine'
-  let g:indentLine_faster = 1
+  Plug 'Yggdroot/indentLine', {'for': ['html', 'css', 'scss', 'vim']}
+  "let g:indentLine_faster = 1
     " TODO:
     "   - mayby configure
     set list
@@ -91,18 +89,19 @@ call plug#begin('~/.config/nvim/plugged')
 
   Plug 'scrooloose/nerdcommenter'
 
-  Plug 'neomake/neomake'
+  Plug 'neomake/neomake', {'on': ['Neomake']}
     " TODO:
     "   - configure
     autocmd! BufWritePost * Neomake
 
 "-----------=== Поддержка языков ===------------
+"----- Lua
+  Plug 'tbastos/vim-lua', {'for': ['lua']}
+
 "----- Python
   Plug 'python-mode/python-mode', {'for': ['python'] }
     let g:pymode_python = 'python3'
     let g:pymode_rope_completion = 0
-
-
 
 "----- Emmet
   Plug 'mattn/emmet-vim', { 'for': ['html','xhtml','css','sass','scss','xml', 'php'] }
@@ -135,20 +134,25 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'mxw/vim-jsx',      { 'for': ['javascript', 'javascript.jsx'] }
     let g:jsx_ext_required = 0
 
-  Plug 'euclio/vim-markdown-composer', { 'do': function('BuildComposer'), 'for': ['markdown'] }
+  Plug 'godlygeek/tabular'
   Plug 'plasticboy/vim-markdown', { 'for': 'markdown'}
     let g:vim_markdown_folding_disabled = 1
+    let g:vim_markdown_conceal = 0
+  "Plug 'euclio/vim-markdown-composer', { 'do': function('BuildComposer'), 'for': ['markdown'] }
 
   Plug 'Shougo/vimproc.vim', {'do' : 'make'}
   Plug 'Shougo/vimfiler.vim'
     let g:loaded_netrwPlugin = 1
     let g:vimfiler_as_default_explorer = 1
+    let g:vimfiler_ignore_pattern = ['node_modules']
 
   Plug 'SirVer/ultisnips'
     let g:UltiSnipsExpandTrigger="<tab>"
     let g:UltiSnipsJumpForwardTrigger="<c-b>"
     let g:UltiSnipsJumpBackwardTrigger="<c-z>"
   Plug 'honza/vim-snippets'
+
+  Plug 'chrisbra/csv.vim'
 
 "--------------=== Автокомплит ===---------
 "----- Deoplete
@@ -191,9 +195,10 @@ au BufNewFile,BufRead *.py
 "map       <Space>      <Leader>
 nnoremap <silent> <Home> :<C-u>Unite -quick-match buffer file<CR>
 map <space> <Plug>(easymotion-prefix)
-map <F2> :UndotreeToggle<CR>
+map <F2> :MundoToggle<CR>
 map <F3> :TagbarToggle<CR>
-map <F4> :VimFilerExplorer<CR>
+map <F4> :VimFilerExplorer -winwidth=25<CR>
+"map <F4> :VimFiler -buffer-name=explorer -split -simple -winwidth=25 -toggle -no-quit<CR>
 inoremap kj <Esc>
 nnoremap <esc> :noh<return><esc>
 "<TAB> for switch window
